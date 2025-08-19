@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registered Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+     {% include 'base.html' %}
+    <h2 class="mb-4">Registered Students</h2>
+
+    <!-- Search Form -->
+    <form method="POST" action="/search" class="row mb-4">
+        <div class="col-md-4">
+            <input type="text" name="student_name" class="form-control" placeholder="Enter student name">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <div class="col-md-2">
+            <a href="/view" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+
+    {% if searched and not found %}
+        <div class="alert alert-warning">No student found with that name.</div>
+    {% endif %}
+
+    {% if data %}
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Age</th>
+                <th>Father Name</th>
+                <th>Dance Type</th>
+                <th>Plan</th>
+                <th>Payment</th>
+                <th>Timestamp</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                {% for item in row %}
+                <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>

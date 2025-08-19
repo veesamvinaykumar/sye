@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dance Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script>
+        function updatePayment() {
+            const plan = document.getElementById("plan").value;
+            const paymentField = document.getElementById("payment");
+            if (plan === "1 month") paymentField.value = 1000;
+            else if (plan === "3 month") paymentField.value = 2500;
+            else if (plan === "5 months") paymentField.value = 4000;
+            else paymentField.value = "";
+        }
+
+        // Redirect to Razorpay
+        function goToPayment() {
+            
+            window.open("________", "_blank");
+        }
+    </script>
+</head>
+<body>
+     {% include 'base.html' %}
+
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+        <div class="card shadow-lg p-4 w-100" style="max-width: 600px;">
+            <h2 class="text-center text-primary mb-4">Dance Class Registration</h2>
+            
+            <form method="POST" action="/submit">
+                <!-- Student Info -->
+                <div class="mb-3">
+                    <label class="form-label">Student Name</label>
+                    <input type="text" name="student_name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Student Age</label>
+                    <input type="number" name="student_age" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Father Name</label>
+                    <input type="text" name="father_name" class="form-control" required>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Dance Info -->
+                <div class="mb-3">
+                    <label class="form-label">Dance Type</label>
+                    <select name="dance_type" class="form-select" required>
+                        <option value="">-- Select Dance Type --</option>
+                        <option value="Classical">Classical</option>
+                        <option value="Western">Western</option>
+                        <option value="Zumba">Zumba</option>
+                        <option value="Folk">Folk</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Plan</label>
+                    <select name="plan" id="plan" class="form-select" onchange="updatePayment()" required>
+                        <option value="">-- Select Plan --</option>
+                        <option value="1 month">1 month</option>
+                        <option value="3 month">3 month</option>
+                        <option value="5 months">5 months</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Payment</label>
+                    <input type="number" name="payment" id="payment" class="form-control" readonly required>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <!-- Contact Info -->
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-gradient w-50 py-2" onclick="goToPayment()">Pay Now</button>
+                    <button type="submit" class="btn btn-gradient w-50 py-2">Submit Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light text-center">
+   {% include 'base.html' %}
+  <div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded">
+      <h2 class="text-success">Thank You, {{ name }}! 🙏</h2>
+      <p>You have successfully registered for <strong>{{ dance_type }}</strong> dance class.</p>
+
+      <div class="mt-4">
+        <a href="/" class="btn btn-primary">Register Another Student</a>
+        <a href="/admin" class="btn btn-outline-secondary">View All Students</a>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
