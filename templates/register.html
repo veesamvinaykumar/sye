@@ -32,10 +32,21 @@ min-height: 100vh;
         }
 
         // Redirect to Razorpay
-        function goToPayment() {
-            
-            window.open("https://pay.jodo.in/pages/URt6yf7aCexMJqHw", "_blank");
-        }
+      function goToPayment() {
+    const amount = document.getElementById("payment").value;
+
+    const upiAppLink = `upi://pay?pa=9392717561-3@ybl&pn=SYE%20DANCE%20ACADEMY&am=${amount}&cu=INR`;
+
+    const qrWebLink = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiAppLink)}`;
+
+    // Try UPI app (mobile)
+    window.location.href = upiAppLink;
+
+    // Fallback for laptop (QR opens)
+    setTimeout(() => {
+        window.open(qrWebLink, "_blank");
+    }, 800);
+}
     </script>
 </head>
 <body>
