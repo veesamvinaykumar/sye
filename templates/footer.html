@@ -1,138 +1,50 @@
-<footer class="footer_2">
-  <div class="container">
-    <div
-      class="footer_2_subscription_bg"
-      style="background: url('https://demo.websolutionus.com/dirlist/user/images/subscribe_bg.jpg')"
-    >
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="footer_2_subs_text">
-            <h2>Subscribe to Newsletter</h2>
-            <p>Subscribe to get updates and information. No spam!</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <form class="footer_2_subs_form" id="subscribeForm">
-            <input
-              id="subscribe_email"
-              name="email"
-              type="text"
-              placeholder="Email address here"
-            />
-            <button class="common_btn_2" type="submit" id="subscribeBtn">
-              <i
-                id="subscribe-spinner"
-                class="loading-icon fas fa-sync fa-spin d-none"
-                aria-hidden="true"
-              ></i>
-              Subscribe
-            </button>
-          </form>
-        </div>
+<footer style="background-color:#1a1a1a; color:white; padding:40px 0; font-family:sans-serif;">
+  <div class="container" style="max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px;">
+    
+    <!-- About SYE Dance Academy -->
+    <div style="flex:1; min-width:250px;">
+      <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='card2.jpg') }}" alt="SYE Logo" style="width:150px; margin-bottom:15px;">
+      </a>
+      <p>Dancing is the rhythm of the soul. At SYE Dance Academy, we help you express yourself through movement, passion, and creativity.</p>
+      <div style="margin-top:15px;">
+        <a href="https://www.facebook.com/saidulu.ch.10" target="_blank" style="color:white; margin-right:10px;">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://wa.me/9948292832" target="_blank" style="color:white; margin-right:10px;">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.youtube.com/results?search_query=sye+dance+academy" target="_blank" style="color:white; margin-right:10px;">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/sye_dance_academy_10/?hl=en" target="_blank" style="color:white;">
+          <i class="fab fa-instagram"></i>
+        </a>
       </div>
+    </div>
+    
+    <!-- Quick Links -->
+    <div style="flex:1; min-width:200px;">
+      <h3 style="margin-bottom:15px;">Quick Links</h3>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="{{ url_for('home') }}" style="color:white; text-decoration:none;">Home</a></li>
+        <li><a href="#" style="color:white; text-decoration:none;">Styles</a></li>
+        <li><a href="#" style="color:white; text-decoration:none;">Blog</a></li>
+        <li><a href="#" style="color:white; text-decoration:none;">Pricing</a></li>
+        <li><a href="{{ url_for('register') }}" style="color:white; text-decoration:none;">Register</a></li>
+      </ul>
+    </div>
+    
+    <!-- Contact Info -->
+    <div style="flex:1; min-width:250px;">
+      <h3 style="margin-bottom:15px;">Contact Us</h3>
+      <p><i class="bi bi-geo-alt-fill" style="color:red;"></i> More Supermarket Rd, New Bakaram, Gandhi Nagar, Hyderabad, Telangana 500097</p>
+      <p><i class="bi bi-envelope-fill" style="color:red;"></i> <a href="mailto:syedanceacademy@gmail.com" style="color:white; text-decoration:none;">syedanceacademy@gmail.com</a></p>
+      <p><i class="bi bi-telephone-fill" style="color:red;"></i> <a href="tel:+9199948292832" style="color:white; text-decoration:none;">+91 99948292832</a></p>
     </div>
   </div>
 
-  <div
-    class="footer_2_bg"
-    style="background: url('https://dirlist.websolutionus.com/user/images/footer_2_bg.jpg')"
-  >
-    <div class="footer_2_overlay">
-      <div class="container">
-        <div class="row justify-content-between">
-          <!-- SYE Description and Social -->
-          <div class="col-xl-4 col-md-6 col-lg-4">
-            <div class="footer_text">
-              <a class="footer_logo" href="#">
-                <img src="{{ url_for('static', filename='logo.jpg') }}" alt="SYE Logo" />
-              </a>
-              <p>
-                Dancing is the rhythm of the soul, where every step tells a story, and every move expresses emotion.
-              </p>
-              <ul class="footer_social">
-                <li>
-                  <a href="https://www.facebook.com/saidulu.ch.10">
-                    <!-- Facebook Icon -->
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/9948292832">
-                    <i class="fab fa-whatsapp"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.youtube.com/results?search_query=sye+dance+academy">
-                    <i class="fab fa-youtube"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/sye_dance_academy_10/?hl=en">
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Important Links -->
-          <div class="col-xl-3 col-md-6 col-lg-3">
-            <div class="footer_text">
-              <h3>Important Links</h3>
-              <ul class="footer_link">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Style Categories</a></li>
-                <li><a href="#">Styles</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Pricing Plan</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Contact Info -->
-          <div class="col-xl-4 col-md-6 col-lg-4">
-            <div class="footer_text footer_contact">
-              <h3>Contact Us</h3>
-              <ul class="footer_link">
-                <li>
-                  <p>
-                    <i class="bi bi-geo-alt-fill" style="color: red;"></i>
-                    More Supermarket Rd, New Bakaram, Gandhi Nagar, Hyderabad, Telangana 500097
-                  </p>
-                </li>
-                <li>
-                  <a href="mailto:syedanceacademy@gmail.com">
-                    <i class="bi bi-envelope-fill" style="color: red;"></i>
-                    syedanceacademy@gmail.com
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:+9199948292832">
-                    <i class="bi bi-telephone-fill" style="color: red;"></i>
-                    +91 99948292832
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Footer -->
-  <div class="footer_bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <p>© 2025 VScodes. All Rights Reserved.</p>
-        </div>
-        <div class="col-lg-6">
-          <ul class="footer_bottom_link">
-            <!-- Add links if needed -->
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div style="text-align:center; padding-top:20px; border-top:1px solid #444; margin-top:20px;">
+    <p>© 2025 SYE Dance Academy. All Rights Reserved.</p>
   </div>
 </footer>

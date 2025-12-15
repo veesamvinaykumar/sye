@@ -35,8 +35,8 @@ initialize_excel()
 initialize_admin_excel()
 
 @app.route('/')
-def index():
-    return render_template('home.html')
+def home():
+    return render_template('index.html')
 @app.route('/register')
 def register():
     return render_template('register.html')
