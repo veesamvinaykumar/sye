@@ -1,124 +1,140 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Dance Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    body{
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-min-height: 100vh;
-    background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-    }
-
-
-  </style>
-    <script>
-        function updatePayment() {
-            const plan = document.getElementById("plan").value;
-            const paymentField = document.getElementById("payment");
-            if (plan === "1 month") paymentField.value = 1000;
-            else if (plan === "3 month") paymentField.value = 2500;
-            else if (plan === "5 months") paymentField.value = 4000;
-            else paymentField.value = "";
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url("https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
-        // Redirect to Razorpay
-      function goToPayment() {
+        /* PhonePe Payment Button */
+        .phonepe-btn {
+            background: linear-gradient(135deg, #5f259f, #7b2cbf);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(95, 37, 159, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .phonepe-btn:hover {
+            background: linear-gradient(135deg, #4b1d82, #6a1bb0);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(95, 37, 159, 0.6);
+        }
+
+        /* Submit Registration Button */
+        /* .submit-btn { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; border: none; padding: 12px 32px; font-size: 16px; font-weight: 600; border-radius: 30px; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 176, 155, 0.4); transition: all 0.3s ease; } */
+        /* .submit-btn:hover { background: linear-gradient(135deg, #009688, #7cb342); transform: translateY(-2px); box-shadow: 0 12px 25px rgba(0, 176, 155, 0.6); } */
+    </style>
+    <script>
+function updatePayment() {
+    const plan = document.getElementById("plan").value;
+    const paymentField = document.getElementById("payment");
+
+    if (plan === "1 month") paymentField.value = 2;
+    else if (plan === "3 month") paymentField.value = 5;
+    else if (plan === "5 months") paymentField.value = 10;
+    else paymentField.value = "";
+}
+
+function goToPayment(event) {
+    const btn = event.target;
     const amount = document.getElementById("payment").value;
 
-    const upiAppLink = `upi://pay?pa=9392717561-3@ybl&pn=SYE%20DANCE%20ACADEMY&am=${amount}&cu=INR`;
+    if (!amount) {
+        alert("Please select a plan first");
+        return;
+    }
 
+    // Disable button
+    btn.disabled = true;
+    btn.innerText = "Processing Payment...";
+
+    const upiAppLink = `upi://pay?pa=9392717561-3@ybl&pn=SYE%20DANCE%20ACADEMY&am=${amount}&cu=INR`;
     const qrWebLink = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiAppLink)}`;
 
-    // Try UPI app (mobile)
+    // Mobile → UPI app
     window.location.href = upiAppLink;
 
-    // Fallback for laptop (QR opens)
+    // Laptop → QR
     setTimeout(() => {
         window.open(qrWebLink, "_blank");
     }, 800);
+
+    // Assume payment success
+    setTimeout(() => {
+        document.getElementById("payment_status").value = "paid";
+        document.querySelector("form").submit();
+    }, 6000);
 }
     </script>
 </head>
-<body>
-     {% include 'base.html' %}
 
-    <div class="container d-flex justify-content-center align-items-center mt-5" >
+<body> {% include 'base.html' %} <div class="container d-flex justify-content-center align-items-center mt-5">
         <div class="card shadow-lg p-4 w-100" style="max-width: 600px;background-color: white;">
             <h2 class="text-center text-primary mb-4">Dance Class Registration</h2>
-            
-            <form method="POST" action="/submit" >
-                <!-- Student Info -->
-                <div class="mb-3">
-                    <label class="form-label">Student Name</label>
-                    <input type="text" name="student_name" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Student Age</label>
-                    <input type="number" name="student_age" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Father Name</label>
-                    <input type="text" name="father_name" class="form-control" required>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <!-- Dance Info -->
-                <div class="mb-3">
-                    <label class="form-label">Dance Type</label>
-                    <select name="dance_type" class="form-select" required>
+            <form method="POST" action="/submit"> <!-- Student Info -->
+                <div class="mb-3"> <label class="form-label">Student Name</label> <input type="text" name="student_name"
+                        class="form-control" required> </div>
+                <div class="mb-3"> <label class="form-label">Student Age</label> <input type="number" name="student_age"
+                        class="form-control" required> </div>
+                <div class="mb-3"> <label class="form-label">Father Name</label> <input type="text" name="father_name"
+                        class="form-control" required> </div>
+                <div class="mb-3"> 
+                    <label class="form-label">Phone Number</label> 
+                    <input type="number"
+                        name="phone" class="form-control" required> </div>
+                <div class="section-divider"></div> <!-- Dance Info -->
+                <div class="mb-3"> <label class="form-label">Dance Type</label> <select name="dance_type"
+                        class="form-select" required>
                         <option value="">-- Select Dance Type --</option>
-                        <option value="Classical">Classical</option>
-                        <option value="Western">Western</option>
-                        <option value="Zumba">Zumba</option>
-                        <option value="Folk">Folk</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Plan</label>
-                    <select name="plan" id="plan" class="form-select" onchange="updatePayment()" required>
+                        <option value="Classical">CLASSICAL</option>
+                        <option value="Western">WESTERN</option>
+                        <option value="Dandiya">DANDIYA</option>
+                        <option value="Hip-Hop">HIP-HOP</option>
+                        <option value="Folk">FOLK</option>
+                        <option value="Gymnastics">GYMANSTICS</option>
+                    </select> </div>
+                <div class="mb-3"> <label class="form-label">Plan</label> <select name="plan" id="plan"
+                        class="form-select" onchange="updatePayment()" required>
                         <option value="">-- Select Plan --</option>
                         <option value="1 month">1 month</option>
                         <option value="3 month">3 month</option>
                         <option value="5 months">5 months</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Payment</label>
-                    <input type="number" name="payment" id="payment" class="form-control" readonly required>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <!-- Contact Info -->
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
-
-                <!-- Buttons -->
+                    </select> </div>
+                <div class="mb-3"> <label class="form-label">Payment</label> <input type="number" name="payment"
+                        id="payment" class="form-control" readonly required> </div>
+                <div class="section-divider"></div> <!-- Contact Info -->
+                <div class="mb-3"> <label class="form-label">Email</label> <input type="email" name="email"
+                        class="form-control" required> </div> <!-- Buttons -->
                 <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-gradient w-50 py-2" onclick="goToPayment()" aria-required="true">Pay Now</button>
-                    <button type="submit" class="btn btn-gradient w-50 py-2">Submit Registration</button>
+                    <!-- Hidden payment status -->
+                    <input type="hidden" name="payment_status" id="payment_status" value="pending">
+
+                    <!-- Pay Now Button -->
+                    <button type="button" class="phonepe-btn w-100" onclick="goToPayment(event)">
+                        Pay Now
+                    </button>
                 </div>
+
             </form>
         </div>
     </div>
-  
 </body>
 
 </html>

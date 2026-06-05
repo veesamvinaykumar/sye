@@ -1,55 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registered Students</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Registered Students</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-5">
-     {% include 'base.html' %}
-    <h2 class="mb-4">Registered Students</h2>
 
-    <!-- Search Form -->
-    <form method="POST" action="/search" class="row mb-4">
-        <div class="col-md-4">
-            <input type="text" name="student_name" class="form-control" placeholder="Enter student name">
-        </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-        <div class="col-md-2">
-            <a href="/view" class="btn btn-secondary">Reset</a>
-        </div>
-    </form>
+<body class="container mt-4">
+{% include 'base.html' %}
 
-    {% if searched and not found %}
-        <div class="alert alert-warning">No student found with that name.</div>
-    {% endif %}
+<h3 class="text-center text-primary">Registered Students</h3>
 
-    {% if data %}
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>Age</th>
-                <th>Father Name</th>
-                <th>Dance Type</th>
-                <th>Plan</th>
-                <th>Payment</th>
-                <th>Timestamp</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                {% for item in row %}
-                <td>{{ item }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
+<table class="table table-bordered table-hover mt-3">
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Plan</th>
+<th>Registered</th>
+<th>Expiry</th>
+<th>Status</th>
+<th>Days Left</th>
+<th>Reminder</th>
+</tr>
+</thead>
+
+<tbody>
+{% for s in data %}
+<tr>
+<td>{{ s.id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.phone }}</td>
+<td>{{ s.plan }}</td>
+<td>{{ s.registered }}</td>
+<td>{{ s.expiry }}</td>
+
+<td>
+{% if s.days_left < 0 %}
+<span class="badge bg-danger">Expired</span>
+{% elif s.days_left <= 5 %}
+<span class="badge bg-warning text-dark">Renew Soon</span>
+{% else %}
+<span class="badge bg-success">Active</span>
+{% endif %}
+</td>
+
+<td>{{ s.days_left }}</td>
+
+<td>
+{% if s.days_left <= 5 %}
+<a target="_blank"
+href="https://wa.me/91{{ s.phone }}?text=Hello {{ s.name }}, your SYE Dance Academy membership will expire soon. Please recharge."
+class="btn btn-success btn-sm">
+WhatsApp
+</a>
+{% else %}
+—
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
 </body>
 </html>

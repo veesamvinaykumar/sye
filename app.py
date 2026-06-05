@@ -90,7 +90,7 @@ def search():
     return render_template("view.html", data=data, found=found, searched=True)
 
 @app.route('/admin', methods=['GET', 'POST'])
-def admin_login():
+def admin():
     if request.method == 'POST':
         username = request.form.get("username")
         password = request.form.get("password")
@@ -108,7 +108,7 @@ def admin_login():
 
     return render_template("admin.html")
 
-@app.route('/admin-register', methods=['GET', 'POST'])
+@app.route('/admin_register', methods=['GET', 'POST'])
 def admin_register():
     if request.method == 'POST':
         code = request.form['secret_code']
